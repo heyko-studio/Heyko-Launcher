@@ -29,3 +29,73 @@ nav a {
   display: block;
   margin: 10px 0;
 }
+
+progress {
+  border: none;
+  height: 10px;
+  border-radius: 90px;
+  color: lightblue;
+  position: relative;
+}
+
+progress::-webkit-progress-value {
+  background: rgb(46,160,232);
+  background: linear-gradient(33deg, rgba(46,160,232,1) 0%, rgba(124,216,255,1) 100%);
+  border-radius: 12px;
+  box-shadow: 3px 0 4px calc(var(--downloadingProgress) * 2) rgba(124,216,255,1);
+}
+
+progress::-webkit-progress-bar {
+  background: rgb(255, 255, 255);
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  border-radius: 90px;
+  box-shadow: inset 0 0 4px 1px rgba(0, 0, 0, 0.132);
+}
+
+.defaultInterface {
+  background: rgba(255, 255, 255, 0.651);
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+  padding: 15px;
+  border-radius: 12px;
+}
+
+.updateContener {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  background: rgb(46,160,232);
+  background: linear-gradient(338deg, rgba(46,160,232,1) 0%, rgba(255,255,255,0.6) 100%);
+}
+
+.updateContener div {
+  padding: 50px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.651);
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.17 );
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.updateContener p {
+  margin: 0;
+  padding: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: rgb(92, 105, 122);
+  text-align: center;
+}
+
+.updateContener progress {
+  width: 400px;
+}

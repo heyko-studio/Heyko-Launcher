@@ -1,6 +1,5 @@
 const { screen, app, BrowserWindow } = require('electron');
 const path = require('path');
-const { Update, CheckForUpdates } = require('./updater');
 
 // Enable live reload for all the files inside your project directory
 require('electron-reload')(__dirname);
@@ -11,12 +10,6 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
-const test = async () => {
-  const updateAvaible = await CheckForUpdates()
-  console.log(updateAvaible)
-}
-test()
-
 const createWindow = () => {
   // Create the browser window.
   const primaryDisplay = screen.getPrimaryDisplay()
@@ -26,7 +19,7 @@ const createWindow = () => {
     height: height,
     icon: path.join(__dirname, 'favicon.png'),
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'preload.js'),
     }
   });
 

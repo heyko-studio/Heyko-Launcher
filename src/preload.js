@@ -1,5 +1,6 @@
 const path = require('path');
-console.log(__dirname)
+const { updateLauncher } = require('./updateLauncher');
+const { updateGame } = require('./updateGame');
 
 window.addEventListener('DOMContentLoaded', () => {
     const body = document.querySelector('body');
@@ -10,4 +11,6 @@ window.addEventListener('DOMContentLoaded', () => {
         <a href="${path.join(__dirname, 'games/five-mysteries.html')}">Five Mysteries</a>
     `
     body.prepend(navbar)
+    updateLauncher()
+    //updateGame('Poly-Story')
 })

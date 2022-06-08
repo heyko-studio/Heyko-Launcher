@@ -3,7 +3,7 @@
 //#region IMPORTING
 const request = require('request');
 const fs = require('fs');
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+
 //#endregion IMPORTING
 
 ////////////////////    GLOBAL VARIABLES    ////////////////////
@@ -16,36 +16,6 @@ var current_version = "unknown";
 
 var dl_bar = null;
 var dl_label = null;
-
-const defaultStages = {
-    Checking: "Checking For Updates!",
-    Found: "Update Found!",
-    NotFound: "No Update Found.",
-    Downloading: "Downloading...",
-    Unzipping: "Installing...",
-    Cleaning: "Finalizing...",
-    Launch: "Launching..."
-};
-
-const defaultOptions = {
-    useGithub: true,
-    gitRepo: "https://github.com/heyko-studio/Heyko-Launcher",
-    gitUsername: "Marchand-Nicolas",
-    isGitRepoPrivate: false,
-    gitRepoToken: "uknown",
-    appName: "Heyko",
-    appExecutableName: this.appName + "",
-    appDirectory: app_library + this.appName,
-    versionFile: this.appDirectory + "/settings/version.json",
-    tempDirectory: this.appDirectory + "/tmp",
-    progressBar: null,
-    label: null,
-    forceUpdate: false,
-    stageTitles: defaultStages
-};
-
-
-
 
 //#endregion GLOBAL VARIABLES
 
@@ -74,14 +44,12 @@ function setOptions(options) {
     options.appExecutableName = options.appExecutableName == null ? options.appName : options.appExecutableName;
     options.stageTitles = options.stageTitles == null ? defaultOptions.stageTitles : options.stageTitles;
 
-
     // Sets the Elements (if used)
     if (options.label !== null)
         dl_label = options.label;
     if (options.progressBar !== null)
         dl_bar = options.progressBar;
-    if (options.useGithub)
-        setupGitProtocol(options);
+    setupGitProtocol(options);
     return options;
 }
 
@@ -122,7 +90,6 @@ function createDirectories(options) {
  * @returns {*} The Direct Download URL
  */
 async function GetUpdateURL(options) {
-
     return fetch(git_api).then(response => response.json()).then(data => { json = data; }).catch(e => {
         try {
             // Electron
@@ -148,7 +115,7 @@ async function GetUpdateVersion() {
     return fetch(git_api).then(response => response.json()).then(data => { json = data; }).catch(e => {
         try {
             // Electron
-            alert(`Something went wrong: ${e}`);
+            alert(`Something went wrong: ${e} ; ${git_api}`);
         } catch {
             // NodeJS
             console.error(`Something went wrong: ${e}`);
@@ -196,7 +163,9 @@ function showProgress(rb, tb) {
     console.log(`${Math.floor((rb * 100) / tb)}% | ${rb} bytes of ${tb} bytes`);
     try {
         if (dl_bar !== null)
-            dl_bar.setAttribute('value', (rb * 100) / tb);
+            //dl_bar.setAttribute('value', (rb * 100) / tb);
+            dl_bar.setAttribute('value', rb / tb);
+            document.documentElement.style.setProperty('--downloadingProgress', rb / tb + "px")
     } catch { }
 }
 
@@ -221,7 +190,7 @@ function updateHeader(value) {
  * Updates the Application based on the Provided Options
  * @param {defaultOptions} options 
  */
-async function Update(options = defaultOptions) {
+async function Update(options) {
     if (testOptions(options)) {
         options = setOptions(options);
         createDirectories(options);
@@ -254,7 +223,8 @@ async function Update(options = defaultOptions) {
  * @param {defaultOptions} options 
  * @returns {*} true if an update is needed and false if not
  */
-async function CheckForUpdates(options = defaultOptions) {
+async function CheckForUpdates(optionsTemp) {
+    let options = optionsTemp
     if (testOptions(options)) {
         options = setOptions(options);
         createDirectories(options);
