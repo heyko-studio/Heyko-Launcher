@@ -1,6 +1,7 @@
 const path = require('path');
 const { updateLauncher, checkLauncherUpdates } = require('./updateLauncher');
 const { updateGame, getGameVersion } = require('./updateGame');
+const { launcherName } = require('./config');
 const fs = require('fs');
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -13,12 +14,29 @@ window.addEventListener('DOMContentLoaded', () => {
     `
     body.prepend(navbar)
     checkLauncherUpdates().then((updateAvaible) => {
-        //updateAvaible && updateLauncher();
+        updateAvaible && updateLauncher();
     })
-    const game = document.querySelector('#gameContainer')
-    if (path.join(__dirname, 'tmp')/*__dirname*/) {
 
+    const game = document.querySelector('#gameContainer')
+
+    // Check if the launcher is executed in the temp directory
+    if (__dirname.slice(__dirname.length - 3, __dirname.length) == "tmp") {
+        setTimeout(async () => {
+            const StreamZip = require('node-stream-zip');
+            const zip = new StreamZip.async({ file: `${__dirname}/${launcherName}.zip` });
+            await zip.extract(null, path.join(__dirname, '../'));
+            await zip.close();
+            window.close();
+        }, 1000);
+    } else {
+        const tmpPath = path.join(__dirname, 'tmp');
+        // Remove recursively all files in the temp directory
+        if (fs.existsSync(tmpPath)) {
+            fs.rmSync(tmpPath, { recursive: true, maxRetries: 3, retryDelay: 500 })
+        }
     }
+
+    // Check if the page contains a game
     if (game) {
         loadGame()
         function loadGame() {

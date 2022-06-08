@@ -1,4 +1,5 @@
 const { Update, CheckForUpdates } = require('./updater');
+const { launcherName, gitUsername } = require('./config');
 
 const defaultStages = {
     Checking: "Checking For Updates...",
@@ -11,10 +12,10 @@ const defaultStages = {
 };
 async function checkLauncherUpdates() {
     const options = {
-        gitRepo: "Heyko-Launcher",
-        gitUsername: "heyko-studio",
-        appName: "Heyko-Launcher",
-        appExecutableName: "heyko-launcher.exe",
+        gitRepo: launcherName,
+        gitUsername: gitUsername,
+        appName: launcherName,
+        appExecutableName: launcherName.toLowerCase() + ".exe",
         progressBar: null,
         label: null,
         stageTitles: defaultStages
@@ -34,10 +35,10 @@ async function updateLauncher() {
     contener.append(subContener)
     body.append(contener)
     const options = {
-        gitRepo: "Heyko-Launcher",
-        gitUsername: "heyko-studio",
-        appName: "Heyko-Launcher",
-        appExecutableName: "heyko-launcher.exe",
+        gitRepo: launcherName,
+        gitUsername: gitUsername,
+        appName: launcherName,
+        appExecutableName: launcherName.toLowerCase() + ".exe",
         progressBar: progressBar,
         label: label,
         stageTitles: defaultStages,

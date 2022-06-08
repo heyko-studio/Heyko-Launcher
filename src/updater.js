@@ -275,7 +275,7 @@ function Download(url, path, options) {
     });
 
     req.on('end', () => {
-        //Install(options)
+        Install(options)
     });
 }
 /**
