@@ -13,9 +13,6 @@ window.addEventListener('DOMContentLoaded', () => {
         <a href="${path.join(__dirname, 'games/five-mysteries.html')}">Five Mysteries</a>
     `
     body.prepend(navbar)
-    checkLauncherUpdates().then((updateAvaible) => {
-        updateAvaible && updateLauncher();
-    })
 
     const game = document.querySelector('#gameContainer')
 
@@ -34,6 +31,9 @@ window.addEventListener('DOMContentLoaded', () => {
         if (fs.existsSync(tmpPath)) {
             fs.rmSync(tmpPath, { recursive: true, maxRetries: 3, retryDelay: 500 })
         }
+        checkLauncherUpdates().then((updateAvaible) => {
+            updateAvaible && updateLauncher();
+        })
     }
 
     // Check if the page contains a game

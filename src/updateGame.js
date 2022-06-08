@@ -27,7 +27,6 @@ async function getGameVersion(Game) {
     })
     const datas = await new Promise((resolve, reject) => {
         req.on('end', async () => {
-
             resolve(JSON.parse(data))
         })
     })

@@ -298,7 +298,7 @@ function Install(options) {
 function CleanUp(options) {
     updateHeader(options.stageTitles.Cleaning);
     //fs.rmSync(options.tempDirectory, { recursive: true, maxRetries: 3, retryDelay: 500 })
-    setTimeout(() => LaunchApplication(options), 2000);
+    setTimeout(() => LaunchApplication(options), 1000);
 }
 
 /**
