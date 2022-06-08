@@ -102,7 +102,6 @@ async function GetUpdateURL(options) {
     }).then(() => {
         let zip;
         for (i = 0; i < json['assets'].length; i++) {
-            console.log(json['assets'][i]['name'])
             if (json['assets'][i]['name'] === `${options.appName}.zip`) zip = json['assets'][i];
         }
         return zip['browser_download_url'];
@@ -161,7 +160,7 @@ function UpdateCurrentVersion(options) {
  * @param {number} tb - Total Bytes to Download
  */
 function showProgress(rb, tb) {
-    console.log(`${Math.floor((rb * 100) / tb)}% | ${rb} bytes of ${tb} bytes`);
+    //console.log(`${Math.floor((rb * 100) / tb)}% | ${rb} bytes of ${tb} bytes`);
     try {
         if (dl_bar !== null)
             //dl_bar.setAttribute('value', (rb * 100) / tb);

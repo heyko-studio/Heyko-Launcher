@@ -26,7 +26,7 @@ const createWindow = () => {
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'home/home.html'));
   // Hide the topbar
-  mainWindow.removeMenu();
+  //mainWindow.removeMenu();
 };
 
 // This method will be called when Electron has finished
