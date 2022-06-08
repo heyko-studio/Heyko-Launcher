@@ -40,6 +40,9 @@ build/Release
 # Builds
 out/
 
+#Games
+games/
+
 # Dependency directories
 node_modules/
 jspm_packages/
