@@ -9,7 +9,18 @@ const defaultStages = {
     Cleaning: "Finalizing...",
     Launch: "Launching..."
 };
-
+async function checkLauncherUpdates() {
+    const options = {
+        gitRepo: "Heyko-Launcher",
+        gitUsername: "heyko-studio",
+        appName: "Heyko-Launcher",
+        appExecutableName: "heyko-launcher.exe",
+        progressBar: null,
+        label: null,
+        stageTitles: defaultStages
+    };
+    return await CheckForUpdates(options);
+}
 async function updateLauncher() {
     const body = document.querySelector('body');
     const contener = document.createElement('div');
@@ -29,13 +40,11 @@ async function updateLauncher() {
         appExecutableName: "heyko-launcher.exe",
         progressBar: progressBar,
         label: label,
-        stageTitles: defaultStages
+        stageTitles: defaultStages,
+        forceUpdate: true
     };
-    const updateAvaible = await CheckForUpdates(options);
-    if (updateAvaible) {
-        Update(options);
-    }
+    Update(options);
 }
 
-module.exports = { updateLauncher };
+module.exports = { updateLauncher, checkLauncherUpdates };
 

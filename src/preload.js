@@ -1,5 +1,5 @@
 const path = require('path');
-const { updateLauncher } = require('./updateLauncher');
+const { updateLauncher, checkLauncherUpdates } = require('./updateLauncher');
 const { updateGame, getGameVersion } = require('./updateGame');
 const fs = require('fs');
 
@@ -12,7 +12,9 @@ window.addEventListener('DOMContentLoaded', () => {
         <a href="${path.join(__dirname, 'games/five-mysteries.html')}">Five Mysteries</a>
     `
     body.prepend(navbar)
-    //updateLauncher()
+    checkLauncherUpdates().then((updateAvaible) => {
+        updateAvaible && updateLauncher();
+    })
     const game = document.querySelector('#gameContainer')
     if (game) {
         loadGame()
@@ -21,13 +23,16 @@ window.addEventListener('DOMContentLoaded', () => {
             const gamesPath = path.join(__dirname, "../games")
             const gamePath = path.join(gamesPath, name)
             let gameStatus = 0
-            //updateGame(name)
             getGameVersion(name).then(datas => {
                 const size = datas.size
                 const lastVersion = datas.v
-                const installedVersion = JSON.parse(fs.readFileSync(path.join(gamePath, "versionDatas.json"))).number;
+                let installedVersion = 0
+                try {
+                    installedVersion = JSON.parse(fs.readFileSync(path.join(gamePath, "versionDatas.json"))).number;
+                }
+                catch {                }
                 if (installedVersion == lastVersion) gameStatus = 1
-                else if (installedVersion < lastVersion) gameStatus = 2
+                else if (installedVersion < lastVersion && installedVersion != 0) gameStatus = 2
                 const playButton = document.createElement('button')
                 playButton.classList.add('download')
                 let playContainer = document.getElementById("playContainer")
