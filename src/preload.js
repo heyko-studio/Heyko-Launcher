@@ -13,9 +13,12 @@ window.addEventListener('DOMContentLoaded', () => {
     `
     body.prepend(navbar)
     checkLauncherUpdates().then((updateAvaible) => {
-        updateAvaible && updateLauncher();
+        //updateAvaible && updateLauncher();
     })
     const game = document.querySelector('#gameContainer')
+    if (path.join(__dirname, 'tmp')/*__dirname*/) {
+
+    }
     if (game) {
         loadGame()
         function loadGame() {

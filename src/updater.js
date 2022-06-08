@@ -275,7 +275,7 @@ function Download(url, path, options) {
     });
 
     req.on('end', () => {
-        Install(options)
+        //Install(options)
     });
 }
 /**
@@ -287,7 +287,7 @@ function Install(options) {
     var AdmZip = require('adm-zip');
     var zip = new AdmZip(`${options.tempDirectory}/${options.appName}.zip`);
 
-    zip.extractAllTo(options.appDirectory, true);
+    zip.extractAllTo(require('path').join(options.appDirectory, 'tmp'), true);
     setTimeout(() => CleanUp(options), 2000);
 }
 
@@ -297,7 +297,7 @@ function Install(options) {
  */
 function CleanUp(options) {
     updateHeader(options.stageTitles.Cleaning);
-    fs.rmdirSync(options.tempDirectory, { recursive: true, maxRetries: 3, retryDelay: 500 })
+    //fs.rmSync(options.tempDirectory, { recursive: true, maxRetries: 3, retryDelay: 500 })
     setTimeout(() => LaunchApplication(options), 2000);
 }
 
@@ -306,7 +306,7 @@ function CleanUp(options) {
  * @param {defaultOptions} options 
  */
 function LaunchApplication(options) {
-    let executablePath = require('path').join(options.appDirectory, options.appExecutableName);
+    let executablePath = require('path').join(options.appDirectory, 'tmp', options.appExecutableName);
     if (fs.existsSync(executablePath)) {
         updateHeader(options.stageTitles.Launch);
         let child = require('child_process').exec;

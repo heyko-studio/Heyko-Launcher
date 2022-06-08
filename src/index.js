@@ -2,7 +2,7 @@ const { screen, app, BrowserWindow } = require('electron');
 const path = require('path');
 
 // Enable live reload for all the files inside your project directory
-//require('electron-reload')(__dirname);
+require('electron-reload')(__dirname);
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
