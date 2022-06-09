@@ -17,13 +17,15 @@ window.addEventListener('DOMContentLoaded', () => {
     const game = document.querySelector('#gameContainer')
 
     // Check if the launcher is executed in the temp directory
-    console.log(__dirname)
-    console.log(__dirname.slice(__dirname.length - 3, __dirname.length))
-    if (__dirname.slice(__dirname.length - 3, __dirname.length) == "tmp") {
+    const tmpDir = path.join(__dirname, '../../../');
+    console.log(tmpDir);
+    console.log(__dirname);
+    console.log(tmpDir.slice(tmpDir.length - 3, tmpDir.length))
+    if (tmpDir.slice(tmpDir.length - 3, tmpDir.length) == "tmp") {
         setTimeout(async () => {
             const StreamZip = require('node-stream-zip');
-            const zip = new StreamZip.async({ file: `${__dirname}/${launcherName}.zip` });
-            await zip.extract(null, path.join(__dirname, '../'));
+            const zip = new StreamZip.async({ file: `${tmpDir}/${launcherName}.zip` });
+            await zip.extract(null, path.join(tmpDir, '../'));
             await zip.close();
             window.close();
         }, 1000);
