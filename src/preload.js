@@ -17,6 +17,8 @@ window.addEventListener('DOMContentLoaded', () => {
     const game = document.querySelector('#gameContainer')
 
     // Check if the launcher is executed in the temp directory
+    console.log(__dirname)
+    console.log(__dirname.slice(__dirname.length - 3, __dirname.length))
     if (__dirname.slice(__dirname.length - 3, __dirname.length) == "tmp") {
         setTimeout(async () => {
             const StreamZip = require('node-stream-zip');
