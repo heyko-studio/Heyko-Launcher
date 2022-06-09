@@ -17,26 +17,31 @@ window.addEventListener('DOMContentLoaded', () => {
     const game = document.querySelector('#gameContainer')
 
     // Check if the launcher is executed in the temp directory
-    const tmpDir = path.join(__dirname, '../../../');
-    console.log(tmpDir);
+    let tmpPath = path.join(__dirname, '../../../');
+    console.log(tmpPath);
     console.log(__dirname);
-    console.log(tmpDir.slice(tmpDir.length - 4, tmpDir.length - 1))
-    if (tmpDir.slice(tmpDir.length - 4, tmpDir.length - 1) == "tmp") {
+    console.log(tmpPath.slice(tmpPath.length - 4, tmpPath.length - 1))
+    if (tmpPath.slice(tmpPath.length - 4, tmpPath.length - 1) == "tmp") {
         setTimeout(async () => {
             const StreamZip = require('node-stream-zip');
-            const zip = new StreamZip.async({ file: `${tmpDir}/${launcherName}.zip` });
-            await zip.extract(null, path.join(tmpDir, '../'));
+            const zip = new StreamZip.async({ file: `${tmpPath}/${launcherName}.zip` });
+            await zip.extract(null, path.join(tmpPath, '../'));
             await zip.close();
-            window.close();
+            let child = require('child_process').exec;
+            child(`"${path.join(tmpPath, '../', 'heyko-launcher.exe')}"`, function (err, data) {
+                if (err) console.log(err)
+                window.close();
+            });
         }, 1000);
     } else {
-        const tmpPath = path.join(__dirname, 'tmp');
+        tmpPath = path.join(tmpPath, 'tmp');
+        console.log(tmpPath)
         // Remove recursively all files in the temp directory
         if (fs.existsSync(tmpPath)) {
             fs.rmSync(tmpPath, { recursive: true, maxRetries: 3, retryDelay: 500 })
         }
         checkLauncherUpdates().then((updateAvaible) => {
-            updateAvaible && updateLauncher();
+            if (updateAvaible) updateLauncher();
         })
     }
 
