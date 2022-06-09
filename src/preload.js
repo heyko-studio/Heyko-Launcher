@@ -20,8 +20,8 @@ window.addEventListener('DOMContentLoaded', () => {
     const tmpDir = path.join(__dirname, '../../../');
     console.log(tmpDir);
     console.log(__dirname);
-    console.log(tmpDir.slice(tmpDir.length - 3, tmpDir.length))
-    if (tmpDir.slice(tmpDir.length - 3, tmpDir.length) == "tmp") {
+    console.log(tmpDir.slice(tmpDir.length - 4, tmpDir.length - 1))
+    if (tmpDir.slice(tmpDir.length - 4, tmpDir.length - 1) == "tmp") {
         setTimeout(async () => {
             const StreamZip = require('node-stream-zip');
             const zip = new StreamZip.async({ file: `${tmpDir}/${launcherName}.zip` });
