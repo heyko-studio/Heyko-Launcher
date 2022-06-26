@@ -133,7 +133,7 @@ async function GetUpdateVersion() {
 function GetCurrentVersion(options) {
     return JSON.parse(fs.readFileSync(options.versionFile, (err, data) => {
         if (err) throw err;
-    }))['app_version'];
+    }))['game_version'];
 }
 
 /**
@@ -234,6 +234,8 @@ async function CheckForUpdates(optionsTemp) {
         new_version = await GetUpdateVersion();
         if (fs.existsSync(options.versionFile)) {
             current_version = GetCurrentVersion(options);
+            console.log(current_version)
+            console.log(new_version)
             if (current_version == "unknown") {
                 console.error('Unable to Load Current Version... Trying again');
                 return true;

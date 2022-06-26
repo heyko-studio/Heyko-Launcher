@@ -18,9 +18,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Check if the launcher is executed in the temp directory
     let tmpPath = path.join(__dirname, '../../../');
-    console.log(tmpPath);
-    console.log(__dirname);
-    console.log(tmpPath.slice(tmpPath.length - 4, tmpPath.length - 1))
     if (tmpPath.slice(tmpPath.length - 4, tmpPath.length - 1) == "tmp") {
         setTimeout(async () => {
             const StreamZip = require('node-stream-zip');
@@ -30,8 +27,6 @@ window.addEventListener('DOMContentLoaded', () => {
             let child = require('child_process').exec;
             child(`"${path.join(tmpPath, '../', 'heyko-launcher.exe')}"`, function (err, data) {
                 if (err) console.log(err)
-                console.log(data)
-                console.log("-----------------------------------------------------")
             });
             setTimeout(() => {
                 window.close();
@@ -39,7 +34,6 @@ window.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     } else {
         tmpPath = path.join(tmpPath, 'tmp');
-        console.log(tmpPath)
         // Remove recursively all files in the temp directory
         if (fs.existsSync(tmpPath)) {
             fs.rmSync(tmpPath, { recursive: true, maxRetries: 3, retryDelay: 500 })
