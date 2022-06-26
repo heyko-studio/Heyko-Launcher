@@ -199,6 +199,7 @@ async function Update(options) {
             await sleep(1000);
             let url = await GetUpdateURL(options);
             Download(url, `${options.tempDirectory}\\${options.appName}.zip`, options);
+            new_version = await GetUpdateVersion()
             UpdateCurrentVersion(options);
         } else {
             updateHeader(options.stageTitles.NotFound);
