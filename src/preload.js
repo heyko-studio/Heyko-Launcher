@@ -30,8 +30,8 @@ window.addEventListener('DOMContentLoaded', () => {
             let child = require('child_process').exec;
             child(`"${path.join(tmpPath, '../', 'heyko-launcher.exe')}"`, function (err, data) {
                 if (err) console.log(err)
-                window.close();
             });
+            window.close();
         }, 1000);
     } else {
         tmpPath = path.join(tmpPath, 'tmp');

@@ -140,9 +140,9 @@ function GetCurrentVersion(options) {
  * Updates the Version File to Reflect the New Version
  * @param {defaultOptions} options 
  */
-function UpdateCurrentVersion(options) {
+function UpdateCurrentVersion(options, override_new_version) {
     let version = {
-        game_version: new_version,
+        game_version: override_new_version || new_version,
         last_updated: Date.now().toString()
     };
     fs.writeFileSync(options.versionFile, JSON.stringify(version));
@@ -347,4 +347,4 @@ function GetAppLibrary() {
 }
 //#endregion
 
-module.exports = { Update, CheckForUpdates, GetAppLibrary };
+module.exports = { Update, CheckForUpdates, GetAppLibrary, UpdateCurrentVersion, GetUpdateVersion };
